@@ -1,0 +1,13 @@
+.vscode
+exemple
+.gitignore
+*.md
+/vendor/
+*.log
+*.txt
+_temp
+docker-compose.yml
+.DS_Store
+.idea
+composer.lock
+tests/results/*

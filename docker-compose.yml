@@ -1,0 +1,16 @@
+version: '3'
+services:
+  sdk:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - TEST_VALID_API_KEY=${TEST_VALID_API_KEY}
+      - TEST_INVALID_API_KEY=${TEST_INVALID_API_KEY}
+      - TEST_PUBLIC_KEY_BASE64=${TEST_PUBLIC_KEY_BASE64}
+      - TEST_BASE_URI=${TEST_BASE_URI}
+    volumes:
+      - ./src:/sdk/src
+      - ./tests:/sdk/tests
+    working_dir: /sdk
+    network_mode: host
