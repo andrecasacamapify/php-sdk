@@ -1,6 +1,6 @@
 # Mapify PHP SDK
 
-The Mapify PHP SDK Library enables you to work with Mapify APIs such as Authorization API on your server.
+The Mapify PHP SDK library is a wrapper for the Mapify APIs, such as the Authorization API, allowing you to develop your Location Intelligence application and services using the PHP programming language.
 
 ## Mapify Platform
 
