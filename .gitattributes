@@ -1,0 +1,11 @@
+* text=auto
+
+/docs export-ignore
+/tests export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.dockerignore export-ignore
+/composer.phar export-ignore
+/Dockerfile export-ignore
+/behat.yml export-ignore
+/docker-compose.yml export-ignore
