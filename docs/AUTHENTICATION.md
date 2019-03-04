@@ -43,7 +43,7 @@
 ### setBaseURI($baseURI) and getBaseURI()
 | Name  |      Type    | Required |  Default | Description |
 |------------| --------------------- | :--------: | :-------: | ---- |
-| baseURI | String | Yes | https://authorization.api.mapify.ai | Http Client Base URI  |
+| baseURI | String | Yes | https://authentication.api.mapify.ai | Http Client Base URI  |
 
 ### setAdditionalCurlOptions($options) and getAdditionalCurlOptions()
 | Name  |      Type    | Required |  Default | Description |
