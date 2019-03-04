@@ -35,7 +35,7 @@ class AuthenticationContext extends \PHPUnit_Framework_TestCase implements Conte
 
       $this->validPublicKey = base64_decode(getenv('TEST_PUBLIC_KEY_BASE64'));
       $this->invalidPublicKey = dirname(__DIR__) . "/assets/invalid.key.pub";
-      $this->baseURI = getenv('TEST_BASE_URI') === false ? "https://authentication.api.mapify.ai" : getenv('TEST_BASE_URI');
+      $this->baseURI = getenv('TEST_BASE_URI') === false ? "https://authorization.api.mapify.ai" : getenv('TEST_BASE_URI');
       $this->validApiKey = getenv('TEST_VALID_API_KEY');
       $this->invalidApiKey = getenv('TEST_INVALID_API_KEY') === false ? 
                substr(str_shuffle(str_repeat($chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(10/strlen($chars)) )),1,10) : 
