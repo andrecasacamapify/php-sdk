@@ -48,7 +48,7 @@ use Mapify\AuthenticationClient;
 use Mapify\AuthenticationOptions;
 
 $options = new AuthenticationOptions()
-$options->setBaseURI("https://authorization.api.mapify.ai")
+$options->setBaseURI("https://authentication.api.mapify.ai")
 $options->setPublicKey("/path/to/key.pub" or file_get_contents("/path/to/key.pub"));
 
 $authenticationClient = new AuthenticationClient($options);
@@ -162,7 +162,7 @@ Follow the steps:
 | **TEST_VALID_API_KEY** |  A valid API key to test | Yes | |
 | **TEST_PUBLIC_KEY_BASE64** | Public API key base64 content |  Yes |  |
 | **TEST_INVALID_API_KEY** | Invalid API key | No | Random String |
-| **TEST_BASE_URI** | Base URI | No | https://authorization.api.mapify.ai |  |
+| **TEST_BASE_URI** | Base URI | No | https://authentication.api.mapify.ai |  |
 
 2. Then run using one of the referred options:
 
