@@ -155,7 +155,7 @@ To view the classes and functions documentation please check [documentation here
 
 Follow the steps:
 
-1. Set the required test environment valiables to configure your environment:
+1. Set the required test environment variables to configure your environment:
 
 | Variable   |      Description      | Required |  Default |
 |------------| --------------------- | :--------: | ------- | 
@@ -185,7 +185,7 @@ php composer.phar run test.junit # Optional: Outputs to folder tests/results wit
 ### Docker
 
 ```sh
-docker build . -t mapify-php-sdk
+docker build . -t mapify-php-sdk && \
 docker run \
 -e TEST_VALID_API_KEY=${TEST_VALID_API_KEY}  \
 -e TEST_INVALID_API_KEY=${TEST_INVALID_API_KEY}  \

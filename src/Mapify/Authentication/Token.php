@@ -82,7 +82,7 @@ class Token
      *
      * @return string algoritm
      */
-    public function getAlgoritm(){
+    public function getAlgorithm(){
         return is_null($this->getHead()) ? null : $this->getHead()->alg;
     }
 
@@ -90,7 +90,7 @@ class Token
         try {
             JWT::$leeway = 5;
             JWT::$supported_algs = self::SUPPORTED_ALGORITHMS;
-            return JWT::decode($this->originalString, $key, [$this->getAlgoritm()]);
+            return JWT::decode($this->originalString, $key, [$this->getAlgorithm()]);
         }catch(\Exception $e){
             return false;
         }
