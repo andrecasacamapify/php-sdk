@@ -53,7 +53,11 @@ class HTTPClient
         }
         
         if(!is_null($body)){
-            $options[CURLOPT_POSTFIELDS] = http_build_query($body);
+            $options[CURLOPT_POSTFIELDS] = json_encode($body);
+            $options[CURLOPT_HTTPHEADER] = [
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($options[CURLOPT_POSTFIELDS])
+            ];
         }
 
         $options = $this->mergeOptions($options);
