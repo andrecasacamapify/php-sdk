@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # get highest tag number
-EXISTING_VERSION_TAG=`git describe --abbrev=0 --tags`
+EXISTING_VERSION_TAG=$(git describe --abbrev=0 --tags || echo "0.0.0")
 EXISTING_VERSION=${EXISTING_VERSION_TAG:-1}
 
 # get number parts and increase last one by 1
