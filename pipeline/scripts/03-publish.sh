@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -euo pipefail
+
+script_dir=$(dirname "$(pwd)/$0")
+
+username=$1
+api_key=$2
+url=$3
+#Punping version to next version
+version=$(sh pipeline/scripts/00-get-next-version.sh $4)
+
+pushd "$script_dir" > /dev/null
+
+cd ../..
+
+echo "Bumping to $new_version...\n\n"
+
+git tag $new_version
+git push
+git push --tags
+
+echo "Tag $new_version pushed\n\n"
+
+curl -XPOST -H'content-type:application/json' \
+    "https://packagist.org/api/update-package?username=$username&apiToken=$api_key" \
+    -d "{\"repository\":{\"url\":\"$url\"}}"
+
+docker run --rm --interactive --tty composer require "mapify/sdk:$new_version"
+
+popd > /dev/null
