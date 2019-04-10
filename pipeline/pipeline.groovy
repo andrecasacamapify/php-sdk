@@ -25,30 +25,30 @@ pipeline {
         }
 
         stage('Test QA') {
-            withCredentials([
-                string(credentialsId: 'mapify-authentication-jwt-public-key', variable: 'TEST_PUBLIC_KEY_BASE64'),
-            ]) {
-                steps {
+            steps {
+                withCredentials([
+                    string(credentialsId: 'mapify-authentication-jwt-public-key', variable: 'TEST_PUBLIC_KEY_BASE64'),
+                ]) {
                     sh "pipeline/scripts/02-test.sh ${TEST_VALID_API_KEY} ${TEST_PUBLIC_KEY_BASE64} ${TEST_BASE_URI_QA} ${VERSION}"
                 }
             }
         }
 
         stage('Test Production') {
-            withCredentials([
-                string(credentialsId: 'mapify-authentication-jwt-public-key-production', variable: 'TEST_PUBLIC_KEY_BASE64'),
-            ]) {
-                steps {
+            steps {
+                withCredentials([
+                    string(credentialsId: 'mapify-authentication-jwt-public-key-production', variable: 'TEST_PUBLIC_KEY_BASE64'),
+                ]) {
                     sh "pipeline/scripts/02-test.sh ${TEST_VALID_API_KEY} ${TEST_PUBLIC_KEY_BASE64} ${TEST_BASE_URI_PRODUCTION} ${VERSION}"
                 }
             }
         }
 
         stage('Publish') {
-            withCredentials([
-                usernamePassword(credentialsId: 'sdk-php-packagist-user-apikey', usernameVariable: 'PACKAGIST_USERNAME', passwordVariable: 'PACKAGIST_API_TOKEN')
-            ]) {
-                steps {
+            steps {
+                withCredentials([
+                    usernamePassword(credentialsId: 'sdk-php-packagist-user-apikey', usernameVariable: 'PACKAGIST_USERNAME', passwordVariable: 'PACKAGIST_API_TOKEN')
+                ]) {
                     sh "pipeline/scripts/02-publish.sh ${PACKAGIST_USERNAME} ${PACKAGIST_API_TOKEN} ${PACKAGIST_PACKAGE_URL} ${VERSION}"
                 }
             }
