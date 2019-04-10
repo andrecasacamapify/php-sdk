@@ -7,7 +7,7 @@ pipeline {
     environment {
         VERSION = "0.0.x"
         PACKAGIST_PACKAGE_URL = "https://packagist.org/packages/mapify/sdk"
-        TEST_BASE_URI_QA = "authentication.api-qa.mapify.ai",
+        TEST_BASE_URI_QA = "authentication.api-qa.mapify.ai"
         TEST_BASE_URI_PRODUCTION = "authentication.api.mapify.ai"
     }
     stages {
