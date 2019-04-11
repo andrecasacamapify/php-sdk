@@ -51,7 +51,7 @@ pipeline {
                 withCredentials([
                     usernamePassword(credentialsId: 'sdk-php-packagist-user-apikey', usernameVariable: 'PACKAGIST_USERNAME', passwordVariable: 'PACKAGIST_API_TOKEN')
                 ]) {
-                    sh "pipeline/scripts/02-publish.sh ${PACKAGIST_USERNAME} ${PACKAGIST_API_TOKEN} ${PACKAGIST_PACKAGE_URL} ${VERSION}"
+                    sh "pipeline/scripts/03-publish.sh ${PACKAGIST_USERNAME} ${PACKAGIST_API_TOKEN} ${PACKAGIST_PACKAGE_URL} ${VERSION}"
                 }
             }
         }
