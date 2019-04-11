@@ -15,6 +15,8 @@ pipeline {
         stage('Setup') {
             steps {
                 sh "git clean -xfd"
+                sh "wget http://stedolan.github.io/jq/download/linux64/jq -O pipeline/scripts/jq"
+                sh "chmod 700 pipeline/scripts/jq"
             }
         }
 

@@ -6,16 +6,13 @@ public_key=$1
 base_uri=$2
 version=$(sh pipeline/scripts/00-get-next-version.sh $3)
 key_file=$4
+jq=$script_dir/jq
 
 script_dir=$(dirname "$(pwd)/$0")
 
 pushd "$script_dir" > /dev/null
 
 cd ../..
-
-wget http://stedolan.github.io/jq/download/linux64/jq -O $script_dir/jq
-jq=$script_dir/jq
-chmod 700 $jq
 
 gcloud auth activate-service-account --key-file="$key_file"
 google_token=$( gcloud auth print-access-token )
