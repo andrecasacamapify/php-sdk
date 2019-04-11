@@ -53,7 +53,7 @@ curl -X DELETE \
   $base_uri/apikey/$valid_api_key \
   -H "Authorization: Bearer $authorization_token"
 
-api_key=$(echo $api | jq .key --raw-output)
+api_key=$(echo $api | $script_dir/jq .key --raw-output)
 curl -X DELETE \
   $base_uri/api/$api_key \
   -H "Authorization: Bearer $authorization_token"
