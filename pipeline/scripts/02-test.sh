@@ -16,15 +16,6 @@ cd ../..
 gcloud auth activate-service-account --key-file="$key_file"
 google_token=$( gcloud auth print-access-token )
 
-curl -X POST \
-  $base_uri/login \
-  -H 'Content-Type: application/json' \
-  -d "{
-	\"token\": \"$google_token\",
-	\"type\": \"accessToken\",
-	\"provider\": \"google\"
-}"
-
 authorization_token=$(curl -X POST \
   $base_uri/login \
   -H 'Content-Type: application/json' \
