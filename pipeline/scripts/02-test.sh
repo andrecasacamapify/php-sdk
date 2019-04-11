@@ -12,8 +12,8 @@ script_dir=$(dirname "$(pwd)/$0")
 pushd "$script_dir" > /dev/null
 
 cd ../..
-
-gcloud auth activate-service-account --key-file="$key_file"
+echo "$script_dir/jq"
+# gcloud auth activate-service-account --key-file="$key_file"
 google_token=$( gcloud auth print-access-token )
 authorization_token=$(curl -X POST \
   $base_uri/login \
@@ -22,7 +22,7 @@ authorization_token=$(curl -X POST \
 	\"token\": \"$google_token\",
 	\"type\": \"accessToken\",
 	\"provider\": \"google\"
-}" | jq .authorizationToken --raw-output)
+}" | $script_dir/jq .authorizationToken --raw-output)
 
 api=$(curl -X POST \
   $base_uri/api \
@@ -34,7 +34,7 @@ api=$(curl -X POST \
 		"name": "cliam",
 		"description": "cliam descript"
 	}]
-}' | jq . --raw-output)
+}' | $script_dir/jq . --raw-output)
 
 apikey=$(curl -X POST \
   $base_uri/apikey \
@@ -43,8 +43,8 @@ apikey=$(curl -X POST \
   -d "{
 	\"name\": \"test sdk\",
 	\"apis\": [$api]
-}" | jq . --raw-output)
-valid_api_key=$(echo $apikey | jq .key --raw-output)
+}" | $script_dir/jq . --raw-output)
+valid_api_key=$(echo $apikey | $script_dir/jq .key --raw-output)
 
 docker run -e TEST_VALID_API_KEY="$valid_api_key" -e TEST_PUBLIC_KEY_BASE64="$public_key" -e TEST_BASE_URI="$base_uri" -v $(pwd)/tests/results:/sdk/tests/results "mapify-sdk-test:$version" -c php composer.phar run test
 
