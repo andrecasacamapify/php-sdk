@@ -14,7 +14,7 @@ pushd "$script_dir" > /dev/null
 cd ../..
 
 wget http://stedolan.github.io/jq/download/linux64/jq -O $script_dir/jq
-$jq=$script_dir/jq
+jq=$script_dir/jq
 
 gcloud auth activate-service-account --key-file="$key_file"
 google_token=$( gcloud auth print-access-token )
