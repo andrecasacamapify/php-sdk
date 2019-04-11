@@ -27,9 +27,10 @@ pipeline {
         stage('Test QA') {
             steps {
                 withCredentials([
-                    string(credentialsId: 'mapify-authentication-jwt-public-key', variable: 'TEST_PUBLIC_KEY_BASE64'),
+                    file(credentialsId: 'mapify-service-account-key', variable: 'FILE'),
+                    string(credentialsId: 'mapify-authentication-jwt-public-key', variable: 'TEST_PUBLIC_KEY_BASE64')
                 ]) {
-                    sh "pipeline/scripts/02-test.sh ${TEST_VALID_API_KEY} ${TEST_PUBLIC_KEY_BASE64} ${TEST_BASE_URI_QA} ${VERSION}"
+                    sh "pipeline/scripts/02-test.sh ${TEST_PUBLIC_KEY_BASE64} ${TEST_BASE_URI_QA} ${VERSION} ${FILE}"
                 }
             }
         }
@@ -37,9 +38,10 @@ pipeline {
         stage('Test Production') {
             steps {
                 withCredentials([
-                    string(credentialsId: 'mapify-authentication-jwt-public-key-production', variable: 'TEST_PUBLIC_KEY_BASE64'),
+                    file(credentialsId: 'mapify-service-account-key', variable: 'FILE'),
+                    string(credentialsId: 'mapify-authentication-jwt-public-key-production', variable: 'TEST_PUBLIC_KEY_BASE64_PRODUCTION'),
                 ]) {
-                    sh "pipeline/scripts/02-test.sh ${TEST_VALID_API_KEY} ${TEST_PUBLIC_KEY_BASE64} ${TEST_BASE_URI_PRODUCTION} ${VERSION}"
+                    sh "pipeline/scripts/02-test.sh ${TEST_PUBLIC_KEY_BASE64_PRODUCTION} ${TEST_BASE_URI_PRODUCTION} ${VERSION} ${FILE}"
                 }
             }
         }
