@@ -13,7 +13,7 @@ pushd "$script_dir" > /dev/null
 
 cd ../..
 echo "$script_dir/jq"
-# gcloud auth activate-service-account --key-file="$key_file"
+gcloud auth activate-service-account --key-file="$key_file"
 google_token=$( gcloud auth print-access-token )
 authorization_token=$(curl -X POST \
   $base_uri/login \
