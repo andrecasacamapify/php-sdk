@@ -12,8 +12,11 @@ pushd "$script_dir" > /dev/null
 cd ../..
 
 echo "Building PHP5.6 image for version $version"
-docker build . -f Dockerfile -t "mapify-sdk-test:5.6.$version" --build-arg BASE_IMAGE=php:5.6-cli-alpine
+sed 's/VERSION/5.6/g' $script_dir/templates/Dockerfile > $script_dir/Dockerfile5.6
+docker build . -f $script_dir/Dockerfile5.6 -t "mapify-sdk-test:5.6.$version" 
+
 echo "Building PHP7 image for version $version"
-docker build . -f Dockerfile -t "mapify-sdk-test:7.$version" --build-arg BASE_IMAGE=php:7-cli-alpine
+sed 's/VERSION/7/g' $script_dir/templates/Dockerfile > $script_dir/Dockerfile7
+docker build . -f $script_dir/Dockerfile7 -t "mapify-sdk-test:7.$version"
 
 popd > /dev/null
