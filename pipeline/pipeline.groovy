@@ -11,7 +11,9 @@ pipeline {
         TEST_BASE_URI_PRODUCTION = "https://authentication.api.mapify.ai"
     }
     stages {
-
+        stage ('Checkout') {
+            checkout scm
+        }
         stage('Setup') {
             steps {
                 sh "pipeline/scripts/01-setup.sh"
@@ -39,7 +41,7 @@ pipeline {
             steps {
                 withCredentials([
                     file(credentialsId: 'mapify-service-account-key', variable: 'FILE'),
-                    string(credentialsId: 'mapify-authentication-jwt-public-key-production', variable: 'TEST_PUBLIC_KEY_BASE64_PRODUCTION'),
+                    string(credentialsId: 'mapify-authentication-jwt-public-key-production', variable: 'TEST_PUBLIC_KEY_BASE64_PRODUCTION')
                 ]) {
                     sh "pipeline/scripts/03-test.sh ${TEST_PUBLIC_KEY_BASE64_PRODUCTION} ${TEST_BASE_URI_PRODUCTION} ${VERSION} ${FILE}"
                 }
@@ -49,6 +51,7 @@ pipeline {
         stage('Publish') {
             steps {
                 withCredentials([
+                    usernamePassword(credentialsId: 'sdk-php-packagist-user-apikey', usernameVariable: 'PACKAGIST_USERNAME', passwordVariable: 'PACKAGIST_API_TOKEN'),
                     usernamePassword(credentialsId: 'sdk-php-packagist-user-apikey', usernameVariable: 'PACKAGIST_USERNAME', passwordVariable: 'PACKAGIST_API_TOKEN')
                 ]) {
                     sh "pipeline/scripts/04-publish.sh ${PACKAGIST_USERNAME} ${PACKAGIST_API_TOKEN} ${PACKAGIST_PACKAGE_URL} ${VERSION}"
