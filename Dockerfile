@@ -1,4 +1,5 @@
-FROM php:${PHP_VERSION:-5.6}-cli-alpine
+ARG BASE_IMAGE=php:5.6-cli-alpine
+FROM $BASE_IMAGE
 
 RUN apk add --update \
     curl
