@@ -10,7 +10,7 @@ url=$3
 #Punping version to next version
 new_version=$(sh pipeline/scripts/00-get-next-version.sh $4)
 
-pushd "$script_dir" > /dev/null,
+pushd "$script_dir" > /dev/null
 
 cd ../..
 
@@ -28,6 +28,6 @@ curl -XPOST -H'content-type:application/json' \
     "https://packagist.org/api/update-package?username=$username&apiToken=$api_key" \
     -d "{\"repository\":{\"url\":\"$url\"}}"
 
-docker run --rm --interactive --tty composer require "mapify/sdk:$new_version"
+docker run --rm --interactive composer require "mapify/sdk:$new_version"
 
 popd > /dev/null
