@@ -47,7 +47,10 @@ apikey=$(curl -X POST \
 }" | $jq . --raw-output)
 valid_api_key=$(echo $apikey | $jq .key --raw-output)
 
-docker run -e TEST_VALID_API_KEY="$valid_api_key" -e TEST_PUBLIC_KEY_BASE64="$public_key" -e TEST_BASE_URI="$base_uri" -v $(pwd)/tests/results:/sdk/tests/results "mapify-sdk-test:$version" -c php composer.phar run test
+echo "Testing PHP5.6"
+docker run -e TEST_VALID_API_KEY="$valid_api_key" -e TEST_PUBLIC_KEY_BASE64="$public_key" -e TEST_BASE_URI="$base_uri" -v $(pwd)/tests/results:/sdk/tests/results "mapify-sdk-test:5.6.$version" -c php composer.phar run test
+echo "Testing PHP7"
+docker run -e TEST_VALID_API_KEY="$valid_api_key" -e TEST_PUBLIC_KEY_BASE64="$public_key" -e TEST_BASE_URI="$base_uri" -v $(pwd)/tests/results:/sdk/tests/results "mapify-sdk-test:7.$version" -c php composer.phar run test
 
 curl -X DELETE \
   $base_uri/apikey/$valid_api_key \
