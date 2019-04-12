@@ -16,9 +16,7 @@ cd ../..
 
 echo "Bumping to $new_version...\n\n"
 
-git tag $new_version
-git push
-git push --tags
+git push origin "$new_version"
 
 echo "Tag $new_version pushed\n\n"
 

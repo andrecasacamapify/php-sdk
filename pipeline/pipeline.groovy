@@ -14,15 +14,13 @@ pipeline {
 
         stage('Setup') {
             steps {
-                sh "git clean -xfd"
-                sh "wget http://stedolan.github.io/jq/download/linux64/jq -O pipeline/scripts/jq"
-                sh "chmod 700 pipeline/scripts/jq"
+                sh "pipeline/scripts/01-setup.sh"
             }
         }
 
         stage('Build') {
             steps {
-                sh "pipeline/scripts/01-build.sh ${VERSION}"
+                sh "pipeline/scripts/02-build.sh ${VERSION}"
             }
         }
 
@@ -32,7 +30,7 @@ pipeline {
                     file(credentialsId: 'mapify-service-account-key', variable: 'FILE'),
                     string(credentialsId: 'mapify-authentication-jwt-public-key', variable: 'TEST_PUBLIC_KEY_BASE64')
                 ]) {
-                    sh "pipeline/scripts/02-test.sh ${TEST_PUBLIC_KEY_BASE64} ${TEST_BASE_URI_QA} ${VERSION} ${FILE}"
+                    sh "pipeline/scripts/03-test.sh ${TEST_PUBLIC_KEY_BASE64} ${TEST_BASE_URI_QA} ${VERSION} ${FILE}"
                 }
             }
         }
@@ -43,7 +41,7 @@ pipeline {
                     file(credentialsId: 'mapify-service-account-key', variable: 'FILE'),
                     string(credentialsId: 'mapify-authentication-jwt-public-key-production', variable: 'TEST_PUBLIC_KEY_BASE64_PRODUCTION'),
                 ]) {
-                    sh "pipeline/scripts/02-test.sh ${TEST_PUBLIC_KEY_BASE64_PRODUCTION} ${TEST_BASE_URI_PRODUCTION} ${VERSION} ${FILE}"
+                    sh "pipeline/scripts/03-test.sh ${TEST_PUBLIC_KEY_BASE64_PRODUCTION} ${TEST_BASE_URI_PRODUCTION} ${VERSION} ${FILE}"
                 }
             }
         }
@@ -53,7 +51,7 @@ pipeline {
                 withCredentials([
                     usernamePassword(credentialsId: 'sdk-php-packagist-user-apikey', usernameVariable: 'PACKAGIST_USERNAME', passwordVariable: 'PACKAGIST_API_TOKEN')
                 ]) {
-                    sh "pipeline/scripts/03-publish.sh ${PACKAGIST_USERNAME} ${PACKAGIST_API_TOKEN} ${PACKAGIST_PACKAGE_URL} ${VERSION}"
+                    sh "pipeline/scripts/04-publish.sh ${PACKAGIST_USERNAME} ${PACKAGIST_API_TOKEN} ${PACKAGIST_PACKAGE_URL} ${VERSION}"
                 }
             }
         }
