@@ -16,6 +16,9 @@ cd ../..
 
 echo "Bumping to $new_version...\n\n"
 
+git config --global user.email "jenkins@mapify.ai"
+git config --global user.name "Jenkins"
+
 git tag -a $new_version -m "Version $new_version"
 git push origin "$new_version"
 

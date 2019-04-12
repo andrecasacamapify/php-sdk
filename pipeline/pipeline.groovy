@@ -11,11 +11,6 @@ pipeline {
         TEST_BASE_URI_PRODUCTION = "https://authentication.api.mapify.ai"
     }
     stages {
-        stage ('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Setup') {
             steps {
                 sh "pipeline/scripts/01-setup.sh"
