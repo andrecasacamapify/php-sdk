@@ -49,7 +49,6 @@ pipeline {
             steps {
                 sshagent(credentials : ['mapify-github']) {
                     withCredentials([
-                        sshUserPrivateKey(credentialsId: 'ssh-credentials-id', keyFileVariable: 'keyfile'),
                         usernamePassword(credentialsId: 'sdk-php-packagist-user-apikey', usernameVariable: 'PACKAGIST_USERNAME', passwordVariable: 'PACKAGIST_API_TOKEN'),
                         usernamePassword(credentialsId: 'sdk-php-packagist-user-apikey', usernameVariable: 'PACKAGIST_USERNAME', passwordVariable: 'PACKAGIST_API_TOKEN')
                     ]) {
