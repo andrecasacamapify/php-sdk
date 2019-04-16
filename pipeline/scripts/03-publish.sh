@@ -7,8 +7,7 @@ script_dir=$(dirname "$(pwd)/$0")
 username=$1
 api_key=$2
 url=$3
-#Punping version to next version
-new_version=$(sh pipeline/scripts/00-get-next-version.sh $4)
+new_version=$4
 
 pushd "$script_dir" > /dev/null
 
