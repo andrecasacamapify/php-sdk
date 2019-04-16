@@ -2,6 +2,8 @@
 
 The Mapify PHP SDK library is a wrapper for the Mapify APIs, such as the Authorization API, allowing you to develop your Location Intelligence application and services using the PHP programming language.
 
+[![Build Status](https://builder.mapify.ai/buildStatus/icon?subject=Build%20Status&job=mapify-php-sdk)]()
+
 ## Mapify Platform
 
 [Mapify](https://www.mapify.ai/) is a Location Intelligence Platform to prototype and develop large scalable enterprise solutions. It aggregates data from IOT sensing devices, modern and legacy information systems, enriching its value through location intelligence and machine learning layers to assist human decision on every imaginable use case while allowing virtually infinite platform extensibility.
