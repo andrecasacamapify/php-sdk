@@ -27,6 +27,17 @@ curl -XPOST -H'content-type:application/json' \
     "https://packagist.org/api/update-package?username=$username&apiToken=$api_key" \
     -d "{\"repository\":{\"url\":\"$url\"}}"
 
-docker run --rm --interactive composer require "mapify/sdk:$new_version"
+must_wait=1
+tried_times=0
+while [[ $must_wait -eq 1 && $try_times -le 20 ]]; do
+    set +e
+    echo "$(date) trying to get the package..." 
+    try_times+=1
+    docker run --rm --interactive composer require "mapify/sdk:$new_version"
+    must_wait=$?
+    set -e
+    echo "$(date) Waiting for package to be ready" 
+    sleep 10s
+done
 
 popd > /dev/null
