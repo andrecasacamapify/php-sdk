@@ -1,4 +1,4 @@
-FROM php:5.6-cli-alpine
+FROM php:VERSION-cli-alpine
 
 RUN apk add --update \
     curl
