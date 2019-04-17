@@ -28,7 +28,7 @@ curl -XPOST -H'content-type:application/json' \
     -d "{\"repository\":{\"url\":\"$url\"}}"
 
 must_wait=1
-tried_times=0
+try_times=0
 while [[ $must_wait -eq 1 && $try_times -le 30 ]]; do
     set +e
     echo "$(date) trying to get the package..." 
@@ -36,8 +36,10 @@ while [[ $must_wait -eq 1 && $try_times -le 30 ]]; do
     docker run --rm --interactive composer require "mapify/sdk:$new_version"
     must_wait=$?
     set -e
-    echo "$(date) Waiting for package to be ready" 
-    sleep 20s
+    if [[ $must_wait -eq 1 ]]; then
+        echo "$(date) Waiting for package to be ready" 
+        sleep 20s
+    fi
 done
 
 popd > /dev/null
