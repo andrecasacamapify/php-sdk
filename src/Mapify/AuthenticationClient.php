@@ -131,7 +131,7 @@ class AuthenticationClient
      * @return AuthenticationClient Mapify Authentication Client
      */
     public function setOptions(AuthenticationOptions $options){
-        $this->httpClient = new HTTPClient($options->getAdditionalCurlOptions());
+        $this->httpClient = new HTTPClient($options->getCurlOptions());
         $this->options = $options;
         return $this;
     }

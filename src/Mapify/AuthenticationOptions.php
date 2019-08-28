@@ -26,18 +26,20 @@ class AuthenticationOptions
     }
 
     /**
-     * Sets the additional options to the request client
+     * Sets the additional options to the request client if option already exists it will be replaced
      *
      * @param array    $options   List of cURL options
      *
      * @return AuthenticationOptions Authentication Options
      */
     public function setAdditionalCurlOptions($options){
-        $this->curlOptions = $options;
+        foreach ($options as $key => $value) {
+            $this->curlOptions[$key] = $value;
+        }
         return $this;
     }
 
-    public function getAdditionalCurlOptions(){
+    public function getCurlOptions(){
         return $this->curlOptions;
     }
 

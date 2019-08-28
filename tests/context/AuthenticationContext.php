@@ -44,6 +44,7 @@ class AuthenticationContext extends \PHPUnit_Framework_TestCase implements Conte
       $this->options = new AuthenticationOptions();
       $this->options->setBaseURI($this->baseURI);
       $this->options->setPublicKey($this->validPublicKey);
+      $this->additionalCurlOptions = [ CURLOPT_PROXY => '127.0.0.1' ];
    }
 
    /**
@@ -101,6 +102,15 @@ class AuthenticationContext extends \PHPUnit_Framework_TestCase implements Conte
       $this->publicKey = $this->validPublicKey;
       $this->options->setPublicKey($this->publicKey);
    }
+
+
+   /**
+   * @Given Additional options
+   */
+   public function additionalOptions()
+   {
+      $this->options->setAdditionalCurlOptions($this->additionalCurlOptions);
+   } 
 
    /**
    * @Given A invalid public key
@@ -167,6 +177,14 @@ class AuthenticationContext extends \PHPUnit_Framework_TestCase implements Conte
    public function authenticationClientPublicKeyMustBeSetted()
    {
       $this->assertEquals($this->publicKey, $this->client->getOptions()->getPublicKey());
+   }
+
+   /**
+   * @Then Additional options must be appended
+   */
+   public function additionalOptionsMustBeAppended()
+   {
+      $this->assertTrue( count(array_intersect($this->additionalCurlOptions, $this->client->getOptions()->getCurlOptions())) > 0);
    }
 
    /**

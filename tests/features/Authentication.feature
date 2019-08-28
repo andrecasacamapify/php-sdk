@@ -6,6 +6,15 @@ Feature: Authentication
         Then Authentication Client base URI must be setted
         And Authentication Client public key must be setted
 
+    Scenario: Instantiate Authentication Client with additional options
+        Given A base URI
+        Given A valid public key
+        Given Additional options
+        When Instantiate the Authentication Client
+        Then Authentication Client base URI must be setted
+        And Authentication Client public key must be setted
+        And Additional options must be appended
+
     Scenario: Sign with and without Payload
         Given A valid api key
         And A valid public key
